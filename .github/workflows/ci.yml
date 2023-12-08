@@ -1,0 +1,39 @@
+name: CI
+
+on: push
+
+jobs:
+  lint_and_typecheck:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./myproject
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rye
+        uses: eifinger/setup-rye@v1
+        with:
+          enable-cache: true
+          cache-prefix: 'my-rye-cache'
+
+      - name: add home shims dir to PATH
+        run: echo "$HOME/.rye/shims" >> $GITHUB_PATH
+
+      - name: pin python
+        run: rye pin 3.11
+
+      - name: rye sync
+        run: rye sync
+
+      - name: ruff format
+        run: rye run ruff format --check .
+
+      - name: ruff check
+        run: rye run ruff check .
+
+      - name: typecheck
+        run: rye run pyright

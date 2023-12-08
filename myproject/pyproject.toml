@@ -1,0 +1,24 @@
+[project]
+name = "rye-example"
+version = "0.1.0"
+description = "Example project for Rye GitHub action"
+authors = [
+    { name = "Pierre Chapuis", email = "git@catwell.info" }
+]
+dependencies = []
+readme = "README.md"
+requires-python = ">= 3.8"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "pyright>=1.1.339",
+    "ruff>=0.1.7",
+]
+
+[tool.hatch.metadata]
+allow-direct-references = true
