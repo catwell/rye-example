@@ -14,14 +14,12 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
 
-      - name: trick so cache works
-        run: ln -s $(pwd)/.venv ../.venv
-
       - name: Install Rye
         uses: eifinger/setup-rye@v1
         with:
           enable-cache: true
           cache-prefix: 'my-rye-cache'
+          working-directory: 'myproject'
 
       - name: add home shims dir to PATH
         run: echo "$HOME/.rye/shims" >> $GITHUB_PATH
